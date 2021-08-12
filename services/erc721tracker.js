@@ -10,7 +10,6 @@ const ftmScanApiURL = process.env.FTM_SCAN_URL
 const provider = new ethers.providers.JsonRpcProvider(rpcapi, chainID)
 
 const NFTITEM = mongoose.model('NFTITEM')
-const BannedNFT = mongoose.model('BannedNFT')
 
 const contractutils = require('./contract.utils')
 
@@ -58,35 +57,28 @@ const trackerc721 = async (begin, end) => {
             await nft.save()
           }
         } else {
-          let bannedToken = await BannedNFT.findOne({
-            contractAddress: contractAddress,
-            tokenID: tokenID,
-          })
-          if (bannedToken) {
+          if (to == validatorAddress) {
           } else {
-            if (to == validatorAddress) {
-            } else {
-              let sc = loadedContracts.get(contractAddress)
-              if (!sc) {
-                sc = contractutils.loadContractFromAddress(contractAddress)
-                loadedContracts.set(contractAddress, sc)
-              }
-              let tokenURI = await sc.tokenURI(tokenID)
-              if (tokenURI.startsWith('https://')) {
-                let metadata = await axios.get(tokenURI)
-                let tokenName = metadata.data.name
-                let imageURL = metadata.data.image
-                let newTk = new NFTITEM()
-                newTk.contractAddress = contractAddress
-                newTk.tokenID = tokenID
-                newTk.name = tokenName
-                newTk.tokenURI = tokenURI
-                newTk.imageURL = imageURL
-                newTk.owner = to
-                newTk.createdAt = new Date(parseInt(tnx.timeStamp) * 1000)
-                await newTk.save()
-                console.log(`new token of ${contractAddress}, ${tokenID} saved`)
-              }
+            let sc = loadedContracts.get(contractAddress)
+            if (!sc) {
+              sc = contractutils.loadContractFromAddress(contractAddress)
+              loadedContracts.set(contractAddress, sc)
+            }
+            let tokenURI = await sc.tokenURI(tokenID)
+            if (tokenURI.startsWith('https://')) {
+              let metadata = await axios.get(tokenURI)
+              let tokenName = metadata.data.name
+              let imageURL = metadata.data.image
+              let newTk = new NFTITEM()
+              newTk.contractAddress = contractAddress
+              newTk.tokenID = tokenID
+              newTk.name = tokenName
+              newTk.tokenURI = tokenURI
+              newTk.imageURL = imageURL
+              newTk.owner = to
+              newTk.createdAt = new Date(parseInt(tnx.timeStamp) * 1000)
+              await newTk.save()
+              console.log(`new token of ${contractAddress}, ${tokenID} saved`)
             }
           }
         }
