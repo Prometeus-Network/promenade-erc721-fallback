@@ -65,21 +65,27 @@ const trackerc721 = async (begin, end) => {
               loadedContracts.set(contractAddress, sc)
             }
             let tokenURI = await sc.tokenURI(tokenID)
-            if (tokenURI.startsWith('https://')) {
+            // if (tokenURI.startsWith('https://')) {
+            let tokenName = '-'
+            let imageURL = '-'
+            try {
               let metadata = await axios.get(tokenURI)
-              let tokenName = metadata.data.name
-              let imageURL = metadata.data.image
-              let newTk = new NFTITEM()
-              newTk.contractAddress = contractAddress
-              newTk.tokenID = tokenID
-              newTk.name = tokenName
-              newTk.tokenURI = tokenURI
-              newTk.imageURL = imageURL
-              newTk.owner = to
-              newTk.createdAt = new Date(parseInt(tnx.timeStamp) * 1000)
-              await newTk.save()
-              console.log(`new token of ${contractAddress}, ${tokenID} saved`)
-            }
+              tokenName = metadata.data.name
+              imageURL = metadata.data.image
+                ? metadata.data.image
+                : metadata.data
+            } catch (error) {}
+            let newTk = new NFTITEM()
+            newTk.contractAddress = contractAddress
+            newTk.tokenID = tokenID
+            newTk.name = tokenName
+            newTk.tokenURI = tokenURI
+            newTk.imageURL = imageURL
+            newTk.owner = to
+            newTk.createdAt = new Date(parseInt(tnx.timeStamp) * 1000)
+            await newTk.save()
+            console.log(`new token of ${contractAddress}, ${tokenID} saved`)
+            // }
           }
         }
       })
