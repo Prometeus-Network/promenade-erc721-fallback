@@ -101,8 +101,8 @@ const trackerc721 = async (begin, end) => {
             }
             let tokenURI = await sc.tokenURI(tokenID)
             // if (tokenURI.startsWith('https://')) {
-            let tokenName = '-'
-            let imageURL = '-'
+            let tokenName = '.'
+            let imageURL = '.'
             try {
               let metadata = await axios.get(tokenURI)
               tokenName = metadata.data.name
