@@ -2,6 +2,8 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 
 require('./models/nftitems')
+require('./models/like')
+require('./models/erc721contract')
 
 const trackAll721s = require('./services/erc721tracker')
 

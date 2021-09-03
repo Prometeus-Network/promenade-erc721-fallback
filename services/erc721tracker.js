@@ -10,6 +10,8 @@ const ftmScanApiURL = process.env.FTM_SCAN_URL
 const provider = new ethers.providers.JsonRpcProvider(rpcapi, chainID)
 
 const NFTITEM = mongoose.model('NFTITEM')
+const ERC721CONTRACT = mongoose.model('ERC721CONTRACT')
+const Like = mongoose.model('Like')
 
 const contractutils = require('./contract.utils')
 
@@ -23,6 +25,35 @@ const toLowerCase = (val) => {
 }
 
 const loadedContracts = new Map()
+
+const bannedCollections = new Map()
+
+const isBannedCollection = async (contractAddress) => {
+  let isBanned = bannedCollections.get(contractAddress)
+  if (isBanned) return true
+  try {
+    let contract_721 = await ERC721CONTRACT.findOne({
+      address: contractAddress,
+    })
+    if (contract_721) {
+      bannedCollections.set(contractAddress, true)
+      return true
+    } else {
+      bannedCollections.set(contractAddress, false)
+      return false
+    }
+  } catch (error) {
+    return false
+  }
+}
+const removeLike = async (contractAddress, tokenID) => {
+  try {
+    await Like.remove({
+      contractAddress: contractAddress,
+      tokenID: tokenID,
+    })
+  } catch (error) {}
+}
 
 const trackerc721 = async (begin, end) => {
   try {
@@ -58,6 +89,7 @@ const trackerc721 = async (begin, end) => {
           }
         } else {
           if (to == validatorAddress) {
+            await removeLike(contractAddress, tokenID)
           } else {
             let sc = loadedContracts.get(contractAddress)
             if (!sc) {
@@ -83,6 +115,8 @@ const trackerc721 = async (begin, end) => {
             newTk.imageURL = imageURL
             newTk.owner = to
             newTk.createdAt = new Date(parseInt(tnx.timeStamp) * 1000)
+            let isBanned = await isBannedCollection(contractAddress)
+            newTk.isAppropriate = !isBanned
             await newTk.save()
             console.log(`new token of ${contractAddress}, ${tokenID} saved`)
             // }
