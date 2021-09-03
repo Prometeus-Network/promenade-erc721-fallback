@@ -78,7 +78,10 @@ const trackerc721 = async (begin, end) => {
         })
         if (nft) {
           console.log(`token exists already ${contractAddress} ${tokenID}`)
-          if (to == validatorAddress) await nft.remove()
+          if (to == validatorAddress) {
+            await removeLike(contractAddress, tokenID)
+            await nft.remove()
+          }
           if (nft.owner != to) {
             nft.owner = to
             let now = Date.now()
