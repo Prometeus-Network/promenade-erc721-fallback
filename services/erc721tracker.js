@@ -34,6 +34,7 @@ const isBannedCollection = async (contractAddress) => {
   try {
     let contract_721 = await ERC721CONTRACT.findOne({
       address: contractAddress,
+      isAppropriate: false,
     })
     if (contract_721) {
       bannedCollections.set(contractAddress, true)
