@@ -135,7 +135,7 @@ const trackerc721 = async (begin, end) => {
   }
 }
 
-let start = 10000000
+let start = process.env.START_BLOCKNUMBER
 
 const trackAll721s = async () => {
   const func = async () => {
