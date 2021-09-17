@@ -1,0 +1,27 @@
+name: Build docker image
+
+env:
+  REGISTRY: registry.digitalocean.com
+  IMAGE_NAME: promenade/promenade-marketplace-tracker
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build image
+        run: docker build -t $IMAGE_NAME .
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Push image to DO registry
+        run: |
+          doctl registry login
+          docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME:latest
+          docker push $REGISTRY/$IMAGE_NAME:latest
