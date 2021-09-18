@@ -2,7 +2,7 @@ name: Build docker image
 
 env:
   REGISTRY: registry.digitalocean.com
-  IMAGE_NAME: promenade/promenade-marketplace-tracker
+  IMAGE_NAME: promenade/promenade-erc721-fallback
 
 on:
   push:
