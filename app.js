@@ -1,6 +1,6 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const healthcheck = require('../promenade-thumbnail-indexer/healthcheck')
+const healthcheck = require('./healthcheck')
 
 require('./models/nftitems')
 require('./models/like')
