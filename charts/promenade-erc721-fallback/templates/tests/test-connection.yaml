@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "promenade-erc721-fallback.fullname" . }}-test-connection"
+  labels:
+    {{- include "promenade-erc721-fallback.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "promenade-erc721-fallback.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

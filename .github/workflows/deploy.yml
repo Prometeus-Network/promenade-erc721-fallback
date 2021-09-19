@@ -1,0 +1,23 @@
+name: Deploy
+
+env:
+  REGISTRY: registry.digitalocean.com
+  IMAGE_NAME: promenade/promenade-erc721-fallback
+  HELM_CHART: promenade-erc721-fallback
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to k8s
+        uses: wahyd4/kubectl-helm-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          GITHUB_SHA: ${{ github.sha }}
+        with:
+          args: |
+            helm upgrade --install --set=image.tag=$GITHUB_SHA $HELM_CHART ./charts/$HELM_CHART

@@ -21,7 +21,11 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - name: Push image to DO registry
+        env:
+          GITHUB_SHA: ${{ github.sha }}
         run: |
           doctl registry login
+          docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME:$GITHUB_SHA
           docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME:latest
           docker push $REGISTRY/$IMAGE_NAME:latest
+          docker push $REGISTRY/$IMAGE_NAME:$GITHUB_SHA
