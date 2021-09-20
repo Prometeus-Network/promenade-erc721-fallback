@@ -53,10 +53,10 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
              {{- toYaml .Values.envFrom | nindent 12 }}
+          volumeMounts: 
+          - name: promenade-mongodb-secret
+            mountPath: /tmp/mongodb
       {{- with .Values.nodeSelector }}
-      volumeMounts: 
-        - name: promenade-mongodb-secret
-          mountPath: /tmp/mongodb
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
