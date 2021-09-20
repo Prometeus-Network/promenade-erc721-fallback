@@ -1,5 +1,6 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
+const healthcheck = require('./healthcheck')
 
 require('./models/nftitems')
 require('./models/like')
@@ -15,4 +16,5 @@ db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', async () => {
   console.log('721 tracker has been connected to the db server')
   trackAll721s()
+  healthcheck()
 })
