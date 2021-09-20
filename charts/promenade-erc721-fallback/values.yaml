@@ -84,10 +84,10 @@ affinity: {}
 
 envFrom:
   - secretRef:
-      name: promenade-promenade-erc721-fallback-secret
+      name: promenade-erc721-fallback-secret
   - secretRef:
       name: promenade-shared-secret
   - configMapRef:
       name: promenade-shared-env-config
   - configMapRef:
-      name: promenade-promenade-erc721-fallback-env-config
+      name: promenade-erc721-fallback-env-config
