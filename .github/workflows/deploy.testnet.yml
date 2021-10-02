@@ -1,4 +1,4 @@
-name: Deploy (mainnet)
+name: Deploy (testnet)
 
 env:
   REGISTRY: registry.digitalocean.com
@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    environment: mainnet
+    environment: testnet
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
