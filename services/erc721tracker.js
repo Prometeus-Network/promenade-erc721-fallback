@@ -44,6 +44,7 @@ const isBannedCollection = async (contractAddress) => {
       return false
     }
   } catch (error) {
+    console.error(error);
     return false
   }
 }
@@ -53,7 +54,9 @@ const removeLike = async (contractAddress, tokenID) => {
       contractAddress: contractAddress,
       tokenID: tokenID,
     })
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 const trackerc721 = async (begin, end) => {
@@ -90,7 +93,10 @@ const trackerc721 = async (begin, end) => {
             let now = Date.now()
             try {
               if (nft.createdAt > now) nft.createdAt = now
-            } catch (error) {}
+            } catch (error) {
+              console.error(error);
+
+            }
             await nft.save()
           }
         } else {
@@ -112,7 +118,9 @@ const trackerc721 = async (begin, end) => {
               imageURL = metadata.data.image
                 ? metadata.data.image
                 : metadata.data
-            } catch (error) {}
+            } catch (error) {
+              console.error(error);
+            }
             let newTk = new NFTITEM()
             newTk.contractAddress = contractAddress
             newTk.tokenID = tokenID
@@ -133,6 +141,7 @@ const trackerc721 = async (begin, end) => {
     }
     return end
   } catch (error) {
+    console.error(error);
     // console.log(error)
   }
 }
@@ -148,7 +157,9 @@ const trackAll721s = async () => {
       setTimeout(async () => {
         await func()
       }, 1000 * 2)
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   }
   await func()
 }
