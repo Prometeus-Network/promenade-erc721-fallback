@@ -61,6 +61,8 @@ const trackerc721 = async (begin, end) => {
     let request = `${ftmScanApiURL}api?module=account&action=tokennfttx&address=${validatorAddress}&startblock=${begin}&endblock=${end}&sort=asc&apikey=${ftmScanApiKey}`
     let result = await axios.get(request)
     let tnxs = result.data.result
+
+    console.log(`found ${tnxs?.length} new transactions...`);
     if (tnxs) {
       let last = tnxs[tnxs.length - 1]
       end = parseInt(last.blockNumber)
