@@ -65,6 +65,9 @@ const trackerc721 = async (begin, end) => {
     let result = await axios.get(request)
     let tnxs = result.data.result
 
+    console.log("start:", start);
+    console.log("end: ", end);
+
     console.log(`found ${tnxs?.length} new transactions...`);
   
 
@@ -74,7 +77,7 @@ const trackerc721 = async (begin, end) => {
       let last = tnxs[tnxs.length - 1]
       end = parseInt(last.blockNumber)
     }
-    
+
     else {
       let promise = tnxs.map(async (tnx) => {
         let to = toLowerCase(tnx.to)
