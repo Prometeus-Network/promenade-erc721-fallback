@@ -72,12 +72,6 @@ const trackerc721 = async (begin, end) => {
   
 
     if (!tnxs || tnxs.length == 0) return end
-
-    if (tnxs) {
-      let last = tnxs[tnxs.length - 1]
-      end = parseInt(last.blockNumber)
-    }
-
     else {
       let promise = tnxs.map(async (tnx) => {
         let to = toLowerCase(tnx.to)
