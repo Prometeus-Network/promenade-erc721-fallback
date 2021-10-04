@@ -66,12 +66,15 @@ const trackerc721 = async (begin, end) => {
     let tnxs = result.data.result
 
     console.log(`found ${tnxs?.length} new transactions...`);
+  
+
+    if (!tnxs || tnxs.length == 0) return end
+
     if (tnxs) {
       let last = tnxs[tnxs.length - 1]
       end = parseInt(last.blockNumber)
     }
-
-    if (!tnxs || tnxs.length == 0) return end
+    
     else {
       let promise = tnxs.map(async (tnx) => {
         let to = toLowerCase(tnx.to)
