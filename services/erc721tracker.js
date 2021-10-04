@@ -152,7 +152,7 @@ const trackAll721s = async () => {
   const func = async () => {
     try {
       let currentBlockHeight = await provider.getBlockNumber()
-      const end = start + 5000;
+      const end = start + 1000;
       start = await trackerc721(start, currentBlockHeight > end ? end : currentBlockHeight)
 
       setTimeout(async () => {
