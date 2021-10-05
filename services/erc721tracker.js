@@ -144,7 +144,6 @@ const trackerc721 = async (begin, end) => {
             tokenName = JSON.stringify(tokenName);
             console.error('NFT Name is incorrect')
           }
-          try {
           let newTk = new NFTITEM();
           newTk.contractAddress = contractAddress;
           newTk.tokenID = tokenID;
@@ -156,15 +155,6 @@ const trackerc721 = async (begin, end) => {
           let isBanned = await isBannedCollection(contractAddress);
           newTk.isAppropriate = !isBanned;
           await newTk.save();
-          } catch (error) {
-            console.error("Couldn't save nft. params:");
-            console.error("tokenID = ", tokenID);
-            console.error("name = ", tokenName);
-            console.error("imageURL = ", imageURL);
-            console.error("owner = ", to);
-            console.error("createdAt = ", new Date(parseInt(tnx.timeStamp) * 1000));
-            console.error("tokeisAppropriaten = ", !isBanned);
-          }
           console.log(`new token of ${contractAddress}, ${tokenID} saved`);
         }
       }
@@ -172,6 +162,13 @@ const trackerc721 = async (begin, end) => {
 
     return end;
   } catch (error) {
+    console.error("Couldn't save nft. params:");
+    console.error("tokenID = ", tokenID);
+    console.error("name = ", tokenName);
+    console.error("imageURL = ", imageURL);
+    console.error("owner = ", to);
+    console.error("createdAt = ", new Date(parseInt(tnx.timeStamp) * 1000));
+    console.error("tokeisAppropriaten = ", !isBanned);
     console.error("Error while performing trackerc721: ", error);
     // console.log(error)
     return start;
