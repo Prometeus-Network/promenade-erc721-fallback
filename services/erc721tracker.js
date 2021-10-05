@@ -79,18 +79,19 @@ const trackerc721 = async (begin, end) => {
       let tokenID = parseInt(tnx.tokenID);
       let contractAddress = toLowerCase(tnx.contractAddress);
 
-      console.log(`seaching for ${contractAddress} with ${tokenID} in db...`);
+      console.log(`searching for ${contractAddress} with ${tokenID} in db...`);
 
       let nft = await NFTITEM.findOne({
         contractAddress: contractAddress,
         tokenID: tokenID,
       });
-      console.log(nft);
+
       if (nft) {
         console.log(`token exists already ${contractAddress} ${tokenID}`);
         if (to == validatorAddress) {
           await removeLike(contractAddress, tokenID);
           await nft.remove();
+          return end;
         }
         if (nft.owner != to) {
           nft.owner = to;
