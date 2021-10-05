@@ -109,6 +109,7 @@ const trackerc721 = async (begin, end) => {
             loadedContracts.set(contractAddress, sc);
           }
           let tokenURI = await sc.tokenURI(tokenID);
+       
           // if (tokenURI.startsWith('https://')) {
           let tokenName = ".";
           let imageURL = ".";
@@ -123,7 +124,7 @@ const trackerc721 = async (begin, end) => {
           newTk.contractAddress = contractAddress;
           newTk.tokenID = tokenID;
           newTk.name = tokenName;
-          newTk.tokenURI = tokenURI;
+          newTk.tokenURI = tokenURI || "empty";
           newTk.imageURL = imageURL;
           newTk.owner = to;
           newTk.createdAt = new Date(parseInt(tnx.timeStamp) * 1000);
