@@ -94,7 +94,7 @@ const trackerc721 = async (begin, end) => {
             try {
               if (nft.createdAt > now) nft.createdAt = now
             } catch (error) {
-              console.error(error);
+              console.error("Error while performing nft.createdAt: ", error);
 
             }
             await nft.save()
@@ -119,7 +119,7 @@ const trackerc721 = async (begin, end) => {
                 ? metadata.data.image
                 : metadata.data
             } catch (error) {
-              console.error(error);
+              console.error("Error while performing getting Metadata: ", error);
             }
             let newTk = new NFTITEM()
             newTk.contractAddress = contractAddress
