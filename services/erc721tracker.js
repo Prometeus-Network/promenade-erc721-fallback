@@ -73,7 +73,7 @@ const trackerc721 = async (begin, end) => {
     if (!tnxs || tnxs.length == 0) {
       return end;
     }
-    for (const i = 0; i < tnxs.length; i++) {
+    for (let i = 0; i < tnxs.length; i++) {
       const tnx = tnxs[i];
       let to = toLowerCase(tnx.to);
       let tokenID = parseInt(tnx.tokenID);
