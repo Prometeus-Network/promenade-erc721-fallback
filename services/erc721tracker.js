@@ -158,13 +158,6 @@ const trackerc721 = async (begin, end) => {
           newTk.createdAt = new Date(parseInt(tnx.timeStamp) * 1000);
           let isBanned = await isBannedCollection(contractAddress);
           newTk.isAppropriate = !isBanned;
-          console.log("Couldn't save nft. params:");
-          console.log("tokenID = ", newTk.tokenID);
-          console.log("name = ", newTk.name);
-          console.log("imageURL = ", newTk.imageURL);
-          console.log("owner = ", newTk.owner);
-          console.log("createdAt = ", newTk.createdAt);
-          console.log("tokeisAppropriaten = ", newTk.isAppropriate);
           await newTk.save();
           console.log(`new token of ${contractAddress}, ${tokenID} saved`);
         }
