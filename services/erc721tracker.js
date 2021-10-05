@@ -163,12 +163,12 @@ const trackerc721 = async (begin, end) => {
     return end;
   } catch (error) {
     console.error("Couldn't save nft. params:");
-    console.error("tokenID = ", tokenID);
-    console.error("name = ", tokenName);
-    console.error("imageURL = ", imageURL);
-    console.error("owner = ", to);
-    console.error("createdAt = ", new Date(parseInt(tnx.timeStamp) * 1000));
-    console.error("tokeisAppropriaten = ", !isBanned);
+    console.error("tokenID = ", newTk.tokenID);
+    console.error("name = ", newTk.name);
+    console.error("imageURL = ", newTk.imageURL);
+    console.error("owner = ", newTk.owner);
+    console.error("createdAt = ", newTk.createdAt);
+    console.error("tokeisAppropriaten = ", newTk.isAppropriate);
     console.error("Error while performing trackerc721: ", error);
     // console.log(error)
     return start;
