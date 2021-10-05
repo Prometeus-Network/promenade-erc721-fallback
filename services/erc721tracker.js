@@ -119,12 +119,6 @@ const trackerc721 = async (begin, end) => {
                 ? metadata.data.image
                 : metadata.data
             } catch (error) {
-              console.log("Error while getting token URI, see current inputs: ");
-              console.log("tokenURI: ", tokenURI);
-              console.log("sc: ", sc);
-              console.log("tokenName: ", tokenName);
-              console.log("imageURL : ", imageURL);
-              console.error("Error while performing getting Metadata: ", error);
             }
             let newTk = new NFTITEM()
             newTk.contractAddress = contractAddress
