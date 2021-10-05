@@ -108,7 +108,12 @@ const trackerc721 = async (begin, end) => {
             sc = contractutils.loadContractFromAddress(contractAddress);
             loadedContracts.set(contractAddress, sc);
           }
-          let tokenURI = await sc.tokenURI(tokenID);
+          let tokenURI;
+          try {
+            tokenURI= await sc.tokenURI(tokenID);
+          } catch {
+            console.error(`Failed to call tokenURI method: ${contractAddress}`)
+          }
        
           // if (tokenURI.startsWith('https://')) {
           let tokenName = ".";
