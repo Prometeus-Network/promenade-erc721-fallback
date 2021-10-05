@@ -44,7 +44,7 @@ const isBannedCollection = async (contractAddress) => {
       return false
     }
   } catch (error) {
-    console.error(error);
+    console.error("Error while performing isBannedCollection: ", error);
     return false
   }
 }
@@ -55,7 +55,7 @@ const removeLike = async (contractAddress, tokenID) => {
       tokenID: tokenID,
     })
   } catch (error) {
-    console.error(error);
+    console.error("Error while performing removeLike: ", error);
   }
 }
 
@@ -141,7 +141,7 @@ const trackerc721 = async (begin, end) => {
     }
     return end
   } catch (error) {
-    console.error(error);
+    console.error("Error while performing trackerc721: ", error);
     // console.log(error)
   }
 }
@@ -159,7 +159,7 @@ const trackAll721s = async () => {
         await func()
       }, 500)
     } catch (error) {
-      console.error(error);
+      console.error("Error while performing trackAll721s: ", error);
     }
   }
   await func()
