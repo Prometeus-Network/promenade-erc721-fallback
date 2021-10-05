@@ -159,7 +159,6 @@ const trackerc721 = async (begin, end) => {
           console.log("owner = ", newTk.owner);
           console.log("createdAt = ", newTk.createdAt);
           console.log("tokeisAppropriaten = ", newTk.isAppropriate);
-          console.log("Error while performing trackerc721: ", error);
           let isBanned = await isBannedCollection(contractAddress);
           newTk.isAppropriate = !isBanned;
           await newTk.save();
@@ -170,6 +169,7 @@ const trackerc721 = async (begin, end) => {
 
     return end;
   } catch (error) {
+    console.log("Error while performing trackerc721: ", error);
     // console.log(error)
     return start;
   }
