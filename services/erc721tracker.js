@@ -125,6 +125,12 @@ const trackerc721 = async (begin, end) => {
               ? metadata.data.image
               : metadata.data;
           } catch (error) {}
+          
+          if (typeof imageURL === "object" && "imageurl" in imageURL) {
+            imageURL = imageURL.imageurl;
+          }
+
+
           let newTk = new NFTITEM();
           newTk.contractAddress = contractAddress;
           newTk.tokenID = tokenID;
