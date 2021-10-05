@@ -125,11 +125,15 @@ const trackerc721 = async (begin, end) => {
               ? metadata.data.image
               : metadata.data;
           } catch (error) {}
-          
+
           if (typeof imageURL === "object" && "imageurl" in imageURL) {
             imageURL = imageURL.imageurl;
           }
 
+          if (typeof imageURL === "object") {
+            imageURL = JSON.stringify(imageURL);
+            console.error('NFT Image is incorrect')
+          }
 
           let newTk = new NFTITEM();
           newTk.contractAddress = contractAddress;
