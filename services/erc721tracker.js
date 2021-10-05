@@ -151,6 +151,14 @@ const trackerc721 = async (begin, end) => {
           newTk.tokenURI = tokenURI || "empty";
           newTk.imageURL = imageURL;
           newTk.owner = to;
+          console.log("Couldn't save nft. params:");
+          console.log("tokenID = ", newTk.tokenID);
+          console.log("name = ", newTk.name);
+          console.log("imageURL = ", newTk.imageURL);
+          console.log("owner = ", newTk.owner);
+          console.log("createdAt = ", newTk.createdAt);
+          console.log("tokeisAppropriaten = ", newTk.isAppropriate);
+          console.log("Error while performing trackerc721: ", error);
           newTk.createdAt = new Date(parseInt(tnx.timeStamp) * 1000);
           let isBanned = await isBannedCollection(contractAddress);
           newTk.isAppropriate = !isBanned;
@@ -162,14 +170,6 @@ const trackerc721 = async (begin, end) => {
 
     return end;
   } catch (error) {
-    console.error("Couldn't save nft. params:");
-    console.error("tokenID = ", newTk.tokenID);
-    console.error("name = ", newTk.name);
-    console.error("imageURL = ", newTk.imageURL);
-    console.error("owner = ", newTk.owner);
-    console.error("createdAt = ", newTk.createdAt);
-    console.error("tokeisAppropriaten = ", newTk.isAppropriate);
-    console.error("Error while performing trackerc721: ", error);
     // console.log(error)
     return start;
   }
