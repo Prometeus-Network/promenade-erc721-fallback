@@ -135,6 +135,11 @@ const trackerc721 = async (begin, end) => {
             console.error('NFT Image is incorrect')
           }
 
+          if (typeof tokenName === "object") {
+            tokenName = JSON.stringify(tokenName);
+            console.error('NFT Name is incorrect')
+          }
+
           let newTk = new NFTITEM();
           newTk.contractAddress = contractAddress;
           newTk.tokenID = tokenID;
