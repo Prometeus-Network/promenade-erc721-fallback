@@ -78,9 +78,7 @@ const trackerc721 = async (begin, end) => {
       let to = toLowerCase(tnx.to);
       let tokenID = parseInt(tnx.tokenID);
       let contractAddress = toLowerCase(tnx.contractAddress);
-
-      console.log(`searching for ${contractAddress} with ${tokenID} in db...`);
-
+      
       let nft = await NFTITEM.findOne({
         contractAddress: contractAddress,
         tokenID: tokenID,
