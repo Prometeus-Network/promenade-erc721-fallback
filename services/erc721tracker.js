@@ -93,6 +93,7 @@ const trackerc721 = async (begin, end) => {
         }
         if (nft.tokenURI == "empty" && nft.imageURL == ".") {
           try {
+            let sc = loadedContracts.get(contractAddress);
             console.log("trying to get imageData")
             const imageData = await sc.imageData(token);
             nft.tokenURI = `pinata/${imageData.nftData}`;
