@@ -131,7 +131,9 @@ const trackerc721 = async (begin, end) => {
           // if (tokenURI.startsWith('https://')) {
           let tokenName = ".";
           let imageURL = ".";
-          
+          if (nft.contractAddress == "0x954d9ec10bb19b64ef07603c102f5bbd75216276") {
+            console.log(nft);
+          }
           if (!nft.tokenURI && nft.imageURL == ".") {
             try {
               let imageData = await sc.imageData(token);
