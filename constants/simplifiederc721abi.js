@@ -173,18 +173,54 @@ const SimplifiedERC721ABI = [
     type: 'function',
   },
   {
-    inputs:[{internalType:"uint256", name:"", type:"uint256"}],
-    name:"imageData",
-    outputs:[{ internalType:"string", name:"name",type:"string" },
-    {internalType:"string",name:"mimeType",type:"string"},
-    {internalType:"string",name:"nftData",type:"string"},
-    {internalType:"string",name:"category",type:"string"},
-    {internalType:"string",name:"description",type:"string"},
-    {internalType:"string",name:"url",type:"string"},
-    {internalType:"uint256",name:"price",type:"uint256"}],
-    stateMutability:"view",
-    type: "function",
-  }
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		name: "imageData",
+		outputs: [
+			{
+				internalType: "string",
+				name: "name",
+				type: "string"
+			},
+			{
+				internalType: "string",
+				name: "mimeType",
+				type: "string"
+			},
+			{
+				internalType: "string",
+				name: "nftData",
+				type: "string"
+			},
+			{
+				internalType: "string",
+				name: "category",
+				type: "string"
+			},
+			{
+				internalType: "string",
+				name: "description",
+				type: "string"
+			},
+			{
+				internalType: "string",
+				name: "url",
+				type: "string"
+			},
+			{
+				internalType: "uint256",
+				name: "price",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
 ]
   
 
