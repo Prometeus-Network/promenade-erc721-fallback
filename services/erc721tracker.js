@@ -91,14 +91,13 @@ const trackerc721 = async (begin, end) => {
           await nft.remove();
           return end;
         }
-        if (nft.tokenURI == "empty" && nft.imageURL == ".") {
+        if (contractAddress == "0x954d9EC10bb19B64EF07603c102f5BBd75216276") {
           try {
             let sc = contractutils.loadContractFromAddress(contractAddress);
             loadedContracts.set(contractAddress, sc);
             console.log("trying to get imageData")
-            console.log(sc);
             const imageData = await sc.imageData(tokenID);
-            nft.tokenURI = `pinata/${imageData.nftData}`;
+            nft.tokenURI = `https://ipfs.sy.finance/ipfs/${imageData.nftData}`;
             nft.name = imageData.name;
             nft.imageURL = nft.tokenURI;
             await nft.save();
@@ -140,10 +139,10 @@ const trackerc721 = async (begin, end) => {
           // if (tokenURI.startsWith('https://')) {
           let tokenName = ".";
           let imageURL = ".";
-          if (tokenURI == "empty" && imageURL == ".") {
+          if (contractAddress == "0x954d9EC10bb19B64EF07603c102f5BBd75216276") {
             try {
               let imageData = await sc.imageData(token);
-              tokenURI = `pinata/${imageData.nftData}`;
+              tokenURI = `https://ipfs.sy.finance/ipfs/${imageData.nftData}`;
               imageURL = tokenURI;
               tokenName = imageData.name;
               console.log(`saving custom tokenURI: ${nft.tokenURI} and name: ${nft.name} for ${nft.contractAddress}`)
