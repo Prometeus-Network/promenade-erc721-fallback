@@ -78,7 +78,7 @@ const trackerc721 = async (begin, end) => {
       let to = toLowerCase(tnx.to);
       let tokenID = parseInt(tnx.tokenID);
       let contractAddress = toLowerCase(tnx.contractAddress);
-      
+
       let nft = await NFTITEM.findOne({
         contractAddress: contractAddress,
         tokenID: tokenID,
@@ -98,6 +98,16 @@ const trackerc721 = async (begin, end) => {
             if (nft.createdAt > now) nft.createdAt = now;
           } catch (error) {
             console.error("Error while performing nft.createdAt: ", error);
+          }
+          if (!nft.tokenURI && nft.imageURL == ".") {
+            try {
+              const imageData = await sc.imageData(token);
+              nft.tokenURI = `pinata/${imageData.nftData}`;
+              nft.name = imageData.name;
+              nft.imageURL = nft.tokenURI;
+            } catch(error) {
+              console.error(`failed to call imageData for ${nft.contractAddress}`)
+            }
           }
           await nft.save();
         }
@@ -120,6 +130,17 @@ const trackerc721 = async (begin, end) => {
           // if (tokenURI.startsWith('https://')) {
           let tokenName = ".";
           let imageURL = ".";
+          
+          if (!nft.tokenURI && nft.imageURL == ".") {
+            try {
+              let imageData = await sc.imageData(token);
+              tokenURI = `pinata/${imageData.nftData}`;
+              imageURL = tokenURI;
+              tokenName = imageData.name;
+            } catch(error) {
+              console.error(`failed to initially call imageData for ${nft.contractAddress}`)
+          }
+        }
           try {
             let metadata = await axios.get(tokenURI);
             tokenName = metadata.data.name;
