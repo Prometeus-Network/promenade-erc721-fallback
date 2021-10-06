@@ -101,7 +101,7 @@ const trackerc721 = async (begin, end) => {
             await nft.save();
             console.log(`saving new tokenURI: ${nft.tokenURI} and name: ${nft.name} for ${nft.contractAddress}`)
           } catch(error) {
-            console.error(`failed to call imageData for ${nft.contractAddress}`)
+            console.error(`failed to call imageData for ${nft.contractAddress} reason: `, error)
           }
         }
         
