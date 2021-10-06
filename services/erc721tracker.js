@@ -136,7 +136,6 @@ const trackerc721 = async (begin, end) => {
           } catch {
             console.error(`Failed to call tokenURI method: ${contractAddress}`)
           }
-          console.log("1")
        
           // if (tokenURI.startsWith('https://')) {
           let tokenName = ".";
@@ -148,7 +147,6 @@ const trackerc721 = async (begin, end) => {
               ? metadata.data.image
               : metadata.data;
           } catch (error) {}
-          console.log("2")
           if (typeof imageURL === "object" && "imageurl" in imageURL) {
             imageURL = imageURL.imageurl;
           }
@@ -157,7 +155,6 @@ const trackerc721 = async (begin, end) => {
             imageURL = JSON.stringify(imageURL);
             console.error('NFT Image is incorrect')
           }
-          console.log("3")
           if (typeof tokenName === "object") {
             tokenName = JSON.stringify(tokenName);
             console.error('NFT Name is incorrect')
@@ -167,23 +164,20 @@ const trackerc721 = async (begin, end) => {
             tokenName = JSON.stringify(tokenName);
             console.error('NFT Name is incorrect')
           }
-          console.log("4")
           if (contractAddress == "0x954d9ec10bb19b64ef07603c102f5bbd75216276") {
-            console.log("5")
             try {
               console.log("getting imageData from new Punk nft... ")
               let imageData = await sc.imageData(token);
               tokenURI = `https://ipfs.sy.finance/ipfs/${imageData.nftData}`;
               imageURL = tokenURI;
               tokenName = imageData.name;
-              console.log(`saving custom tokenURI: ${nft.tokenURI} and name: ${nft.name} for ${nft.contractAddress}`)
+              console.log(`saving custom tokenURI: ${tokenURI} and name: ${tokenName} for ${contractAddress}`)
             } catch(error) {
-              console.error(`failed to initially call imageData for ${nft.contractAddress}`)
+              console.error(`failed to initially call imageData for ${contractAddress}`)
           }
         }
-        console.log("6")
+
           let newTk = new NFTITEM();
-          console.log("7")
           newTk.contractAddress = contractAddress;
           newTk.tokenID = tokenID;
           newTk.name = tokenName;
@@ -193,7 +187,6 @@ const trackerc721 = async (begin, end) => {
           newTk.createdAt = new Date(parseInt(tnx.timeStamp) * 1000);
           let isBanned = await isBannedCollection(contractAddress);
           newTk.isAppropriate = !isBanned;
-          console.log("8")
           await newTk.save();
           console.log(`new token of ${contractAddress}, ${tokenID} saved`);
         }
