@@ -173,7 +173,7 @@ const trackerc721 = async (begin, end) => {
               tokenName = imageData.name;
               console.log(`saving custom tokenURI: ${tokenURI} and name: ${tokenName} for ${contractAddress}`)
             } catch(error) {
-              console.error(`failed to initially call imageData for ${contractAddress}`)
+              console.error(`failed to initially call imageData for ${contractAddress} with error: `, error )
           }
         }
 
