@@ -86,9 +86,6 @@ const trackerc721 = async (begin, end) => {
 
       if (nft) {
         console.log(`token exists already ${contractAddress} ${tokenID}`);
-        if (nft.contractAddress == "0x954d9ec10bb19b64ef07603c102f5bbd75216276") {
-          console.log(nft);
-        }
         if (to == validatorAddress) {
           await removeLike(contractAddress, tokenID);
           await nft.remove();
@@ -102,7 +99,7 @@ const trackerc721 = async (begin, end) => {
           } catch (error) {
             console.error("Error while performing nft.createdAt: ", error);
           }
-          if (!nft.tokenURI && nft.imageURL == ".") {
+          if (nft.tokenURI == "empty" && nft.imageURL == ".") {
             try {
               const imageData = await sc.imageData(token);
               nft.tokenURI = `pinata/${imageData.nftData}`;
@@ -134,7 +131,7 @@ const trackerc721 = async (begin, end) => {
           // if (tokenURI.startsWith('https://')) {
           let tokenName = ".";
           let imageURL = ".";
-          if (!nft.tokenURI && nft.imageURL == ".") {
+          if (tokenURI == "empty" && imageURL == ".") {
             try {
               let imageData = await sc.imageData(token);
               tokenURI = `pinata/${imageData.nftData}`;
