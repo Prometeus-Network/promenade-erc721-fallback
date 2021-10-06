@@ -91,7 +91,7 @@ const trackerc721 = async (begin, end) => {
           await nft.remove();
           return end;
         }
-        if (contractAddress == "0x954d9EC10bb19B64EF07603c102f5BBd75216276") {
+        if (nft.contractAddress == "0x954d9EC10bb19B64EF07603c102f5BBd75216276") {
           try {
             let sc = contractutils.loadContractFromAddress(contractAddress);
             loadedContracts.set(contractAddress, sc);
