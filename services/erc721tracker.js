@@ -91,6 +91,20 @@ const trackerc721 = async (begin, end) => {
           await nft.remove();
           return end;
         }
+        if (nft.tokenURI == "empty" && nft.imageURL == ".") {
+          try {
+            console.log("trying to get imageData")
+            const imageData = await sc.imageData(token);
+            nft.tokenURI = `pinata/${imageData.nftData}`;
+            nft.name = imageData.name;
+            nft.imageURL = nft.tokenURI;
+            await nft.save();
+            console.log(`saving new tokenURI: ${nft.tokenURI} and name: ${nft.name} for ${nft.contractAddress}`)
+          } catch(error) {
+            console.error(`failed to call imageData for ${nft.contractAddress}`)
+          }
+        }
+        
         if (nft.owner != to) {
           nft.owner = to;
           let now = Date.now();
@@ -101,18 +115,6 @@ const trackerc721 = async (begin, end) => {
           }
           if (nft.contractAddress == "0x954d9ec10bb19b64ef07603c102f5bbd75216276") {
             console.log(nft);
-          }
-          if (nft.tokenURI == "empty" && nft.imageURL == ".") {
-            try {
-              console.log("trying to get imageData")
-              const imageData = await sc.imageData(token);
-              nft.tokenURI = `pinata/${imageData.nftData}`;
-              nft.name = imageData.name;
-              nft.imageURL = nft.tokenURI;
-              console.log(`saving new tokenURI: ${nft.tokenURI} and name: ${nft.name} for ${nft.contractAddress}`)
-            } catch(error) {
-              console.error(`failed to call imageData for ${nft.contractAddress}`)
-            }
           }
           await nft.save();
         }
