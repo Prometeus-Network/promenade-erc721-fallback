@@ -105,6 +105,7 @@ const trackerc721 = async (begin, end) => {
               nft.tokenURI = `pinata/${imageData.nftData}`;
               nft.name = imageData.name;
               nft.imageURL = nft.tokenURI;
+              console.log(`saving new tokenURI: ${nft.tokenURI} and name: ${nft.name} for ${nft.contractAddress}`)
             } catch(error) {
               console.error(`failed to call imageData for ${nft.contractAddress}`)
             }
@@ -137,6 +138,7 @@ const trackerc721 = async (begin, end) => {
               tokenURI = `pinata/${imageData.nftData}`;
               imageURL = tokenURI;
               tokenName = imageData.name;
+              console.log(`saving custom tokenURI: ${nft.tokenURI} and name: ${nft.name} for ${nft.contractAddress}`)
             } catch(error) {
               console.error(`failed to initially call imageData for ${nft.contractAddress}`)
           }
