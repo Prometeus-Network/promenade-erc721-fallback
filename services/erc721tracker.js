@@ -99,8 +99,12 @@ const trackerc721 = async (begin, end) => {
           } catch (error) {
             console.error("Error while performing nft.createdAt: ", error);
           }
+          if (nft.contractAddress == "0x954d9ec10bb19b64ef07603c102f5bbd75216276") {
+            console.log(nft);
+          }
           if (nft.tokenURI == "empty" && nft.imageURL == ".") {
             try {
+              console.log("trying to get imageData")
               const imageData = await sc.imageData(token);
               nft.tokenURI = `pinata/${imageData.nftData}`;
               nft.name = imageData.name;
