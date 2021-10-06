@@ -128,7 +128,7 @@ const trackerc721 = async (begin, end) => {
           if (!sc) {
             sc = contractutils.loadContractFromAddress(contractAddress);
             loadedContracts.set(contractAddress, sc);
-            console.log("going now with: ", sc.contractAddress)
+            console.log("going now with: ", contractAddress)
           }
           let tokenURI;
           try {
@@ -166,7 +166,7 @@ const trackerc721 = async (begin, end) => {
             tokenName = JSON.stringify(tokenName);
             console.error('NFT Name is incorrect')
           }
-          if (sc.contractAddress == "0x954d9ec10bb19b64ef07603c102f5bbd75216276") {
+          if (contractAddress == "0x954d9ec10bb19b64ef07603c102f5bbd75216276") {
             try {
               console.log("getting imageData from new Punk nft... ")
               let imageData = await sc.imageData(token);
