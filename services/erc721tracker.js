@@ -167,7 +167,7 @@ const trackerc721 = async (begin, end) => {
           if (contractAddress == "0x954d9ec10bb19b64ef07603c102f5bbd75216276") {
             try {
               console.log("getting imageData from new Punk nft... ")
-              let imageData = await sc.imageData(token);
+              let imageData = await sc.imageData(tokenID);
               tokenURI = `https://ipfs.sy.finance/ipfs/${imageData.nftData}`;
               imageURL = tokenURI;
               tokenName = imageData.name;
