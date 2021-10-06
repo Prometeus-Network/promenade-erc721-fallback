@@ -139,17 +139,6 @@ const trackerc721 = async (begin, end) => {
           // if (tokenURI.startsWith('https://')) {
           let tokenName = ".";
           let imageURL = ".";
-          if (contractAddress == "0x954d9EC10bb19B64EF07603c102f5BBd75216276") {
-            try {
-              let imageData = await sc.imageData(token);
-              tokenURI = `https://ipfs.sy.finance/ipfs/${imageData.nftData}`;
-              imageURL = tokenURI;
-              tokenName = imageData.name;
-              console.log(`saving custom tokenURI: ${nft.tokenURI} and name: ${nft.name} for ${nft.contractAddress}`)
-            } catch(error) {
-              console.error(`failed to initially call imageData for ${nft.contractAddress}`)
-          }
-        }
           try {
             let metadata = await axios.get(tokenURI);
             tokenName = metadata.data.name;
@@ -176,6 +165,17 @@ const trackerc721 = async (begin, end) => {
             tokenName = JSON.stringify(tokenName);
             console.error('NFT Name is incorrect')
           }
+          if (contractAddress == "0x954d9ec10bb19b64ef07603c102f5bbd75216276") {
+            try {
+              let imageData = await sc.imageData(token);
+              tokenURI = `https://ipfs.sy.finance/ipfs/${imageData.nftData}`;
+              imageURL = tokenURI;
+              tokenName = imageData.name;
+              console.log(`saving custom tokenURI: ${nft.tokenURI} and name: ${nft.name} for ${nft.contractAddress}`)
+            } catch(error) {
+              console.error(`failed to initially call imageData for ${nft.contractAddress}`)
+          }
+        }
           let newTk = new NFTITEM();
           newTk.contractAddress = contractAddress;
           newTk.tokenID = tokenID;
